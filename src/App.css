@@ -60,6 +60,13 @@ h3.bottom {
   color:#eee;
 }
 
+.negative {
+  color:red;
+}
+.positive {
+  color:green;
+}
+
 .row {
   display:flex;
   flex-direction: row;
@@ -81,12 +88,15 @@ h3.bottom {
   margin:0;
 }
 
-
+form {
+  margin:0;
+  padding:0;
+}
 .flex {
   display:flex;
   justify-content: space-around;
   align-items: center;
-  padding:.5em;
+  /* padding:.5em; */
   /* border:1px solid black; */
   /* margin-bottom:.5em; */
 }
@@ -96,7 +106,7 @@ h3.bottom {
   border-radius: 10px;
 }
 .flex > div {
-  margin-right:.5em;
+  margin-right:0.5em;
 }
 
 .flex > div:nth-child(2), .flex > div:nth-child(3) {
@@ -107,27 +117,42 @@ h3.bottom {
   margin:0;
 }
 
+/* grid class */
 .grid {
   display:grid;
 }
 
-.three {
-  grid-template-columns: 1.5fr 1.5fr 1fr;
+  /* 1 column used for toolbox */
+  .one {
+    grid-template-columns: 1fr;
+  }
+
+  /* 2 columns used for summary */
+  .two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 4 columns used for listing incomes & expenses */
+  .four {
+    grid-template-columns: repeat(4,1fr);
+  }
+
+  
+  .grid > div {
+    padding:.5em;
+  }
+
+.toolboxForm {
+  display:grid;
+  grid-template-columns: 1fr .75fr 1fr;
+  /* background:blueviolet */
 }
 
-.two {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.grid > div {
-  padding:.5em;
-}
-
-button {
+/* button {
   border:none;
   padding:.5em 1em;
   border-radius:10px;
-}
+} */
 .changeButton {
   background-color: #393E46;
   color:#eee;
@@ -139,17 +164,24 @@ button {
 
 
 
-input[type="text"] {
+input[type="text"], input[type="integer"], button {
   width:100%;
   border:0;
-  margin:.5em;
-  padding:.5em;
-  background:transparent;
+  font-size: inherit;
+  padding: 0.75em;
+  background:white;
   border-bottom:1px solid transparent;
-  color:#eee;
+  color:#393E46;
 }
 
-input[type="text"]:focus {
+input[type="text"]:first-child {
+  border-radius: 10px 0px 0px 10px;
+}
+button {
+  border-radius: 0px 10px 10px 0px;
+}
+
+input[type="text"]:focus, input[type="integer"]:focus {
   border-bottom:1px solid #aaa;
   outline: none;
 }

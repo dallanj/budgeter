@@ -17,15 +17,19 @@ function App() {
   // expense stuff
   const [expenses, setExpense] = useState([]);
   const [userInputExpense, setUserInputExpense] = useState({
+    // "poop": {
+    //   description: "",
+    //   amount: "",
+    //   date: "",
+    //   type: ""
+    // }
+    
       description: "",
       amount: "",
       date: "",
       type: ""
   });
-  const [totalExpense, setTotalExpense] = useState(0);
-
-  // total savings
-  const [totalSavings, setTotalSavings] = useState(0);
+  const [totalExpense, setTotalExpense] = useState('');
 
   const uid = function(){
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -55,12 +59,10 @@ function App() {
 
       // var to store new state
       const newIncome = [];
+      const newExpense = [];
+      
       const arrayOfIncomes = [];
       let sumIncome = 0;
-
-      const newExpense = [];
-      const arrayOfExpenses = [];
-      let sumExpense = 0;
 
       const data = response.val();
       if(data == null) {
@@ -76,15 +78,25 @@ function App() {
       // iterate through database data where index = userId
         for(let property in data[userId]) {
 
-          console.log(data[userId][property].type)
-          if(data[userId][property].type == 'income') {
-            arrayOfIncomes.push(parseInt(data[userId][property].amount));
-          }
-          else if(data[userId][property].type == 'expense')
-          {
-            arrayOfExpenses.push(parseInt(data[userId][property].amount));
-          }
+          // console.log('this is amount:')
+          // console.log(data[userId][property].amount)
+          arrayOfIncomes.push(parseInt(data[userId][property].amount));
+          //   console.log('is it num or string')
+          //   console.log()
+            
+            
+          //   console.log('this is sumIncome:')
+          // console.log(sumIncome)
 
+          // remove later
+          // console.log(`${property}: ${data[userId][property].amount}`);
+          
+          //testing this today nov 22
+          // newIncome.push({
+          //   description: data[property].desc,
+          //   amount: data[property].amount
+          // })
+          
               // push to newIncome array if income
             if(data[userId][property].type === 'income') {
               newIncome.push({
@@ -120,23 +132,14 @@ function App() {
           
         
         }
-        // for array of incomes
         for (let i = 0; i < arrayOfIncomes.length; i++) {
           sumIncome += arrayOfIncomes[i]
         }
-        setTotalIncome(sumIncome);
-        setIncome(newIncome);
-
-        // for array of expenses
-        for (let i = 0; i < arrayOfExpenses.length; i++) {
-          sumExpense += arrayOfExpenses[i]
-        }
-        setTotalExpense(sumExpense);
-        setExpense(newExpense);
-
-        // total sums of income and expenses
-        setTotalSavings(sumIncome - sumExpense);
-
+      
+        setTotalIncome(sumIncome)
+      setIncome(newIncome);
+      setExpense(newExpense);
+      
     })
 
 
@@ -153,11 +156,17 @@ function App() {
   }
 
 
-  const addIncome = (event) => {
+  const addRecord = (event) => {
     event.preventDefault();
     
+    // setuserInputIncome(event.target.value);
+
     // make db connection
     const dbRef = firebase.database().ref(`/${userId}`);
+
+    // store data passed from add button
+    const type = event.target.value;
+    const key = uid();
 
     // create a timestamp
     const currentDate = new Date();
@@ -165,40 +174,31 @@ function App() {
     const cMonth = currentDate.getMonth() + 1;
     const cYear = currentDate.getFullYear();
 
-    // push income to db
-    dbRef.push(userInputIncome);
+    console.log('below is WHAT WE WANNA PUSH')
+    // console.log(event.target[1].value);
+    console.log(event.target.value)
 
-    // clear the inputs
-    setUserInputIncome({
-      description: "",
-      amount: "",
-      date: "",
-      type: "" 
-    });
-  }
-
-  const addExpense = (event) => {
-    event.preventDefault();
+    if(type === 'income') {
+      const newIncome = dbRef.push({
+        // id: `income${key}`,
+        type: type,
+        date: `${cDay}/${cMonth}/${cYear}`,
+        description: "description",
+        amount: "0"
+       });
+    } else {
+      const newExpense = dbRef.push({
+        // id: `expense${key}`,
+        type: type,
+        date: `${cDay}/${cMonth}/${cYear}`,
+        description: "description",
+        amount: "0"
+       });
+    }
     
-    // make db connection
-    const dbRef = firebase.database().ref(`/${userId}`);
 
-    // create a timestamp
-    const currentDate = new Date();
-    const cDay = currentDate.getDate();
-    const cMonth = currentDate.getMonth() + 1;
-    const cYear = currentDate.getFullYear();
     
-    // push expense to db
-    dbRef.push(userInputExpense);
 
-    // clear the inputs
-    setUserInputExpense({
-      description: "",
-      amount: "",
-      date: "",
-      type: "" 
-    });
   }
 
 
@@ -208,53 +208,61 @@ function App() {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+    const valueInt = parseFloat(event.target.value)
+    // console.log('below is name')
+    // console.log(event.target.value);
 
-    // store data passed from add button
-    const type = 'income';
+    // console.log('below is typeof')
+    // console.log(typeof valueInt)
+
+
+    // setTotalIncome(totalIncome + valueInt)
+    // console.log('below is totalincome')
+    // console.log(totalIncome)
+    // const idd = '-Mp9QOw4wvtS3wu2FqvJ'
+    // const idd = event.target[0].value;
+
     
-    // create a timestamp
-    const currentDate = new Date();
-    const cDay = currentDate.getDate();
-    const cMonth = currentDate.getMonth() + 1;
-    const cYear = currentDate.getFullYear();
+    // setuserInputIncome({
+    //   ...userInputIncome,
+    //   [name]: value
+    // });
 
-    // set the data to userInputIncome
-    setUserInputIncome({
-      ...userInputIncome,
-      type: type,
-      date: `${cDay}/${cMonth}/${cYear}`,
-      [name]: value,
+    // setuserInputIncome({
+    //   "poop23": {
+    //     ...userInputIncome,
+    //     [name]: value,
+    //   }
+      setUserInputIncome({
+      // [id]: {
+        ...userInputIncome,
+        [name]: value,
+      // }
+        
+      
+
     })
 
+    // console.log(userInputIncome);
   }
 
   const handleExpenseChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
-    // store data passed from add button
-    const type = 'expense';
-    
-    // create a timestamp
-    const currentDate = new Date();
-    const cDay = currentDate.getDate();
-    const cMonth = currentDate.getMonth() + 1;
-    const cYear = currentDate.getFullYear();
-
-    // set the data to userInputIncome
     setUserInputExpense({
-      ...userInputExpense,
-      type: type,
-      date: `${cDay}/${cMonth}/${cYear}`,
-      [name]: value,
+
+        ...userInputExpense,
+        [name]: value,
     })
+
+    console.log(userInputIncome);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    // console.log('below is target')
+    console.log('below is target')
     // console.log(event.target[1].value);
     // console.log(event.target[4].value)
     // make db connection
@@ -336,29 +344,17 @@ function App() {
 
             {/* row 1 */}
             <div>
-              <div className="toolboxForm" onSubmit={addIncome}>
-                <div>Description</div>
-                <div>Amount ($)</div>
-                <div></div>
-              </div>
-            </div>
-
-            {/* row 2 */}
-            <div>
-              <form className="toolboxForm" onSubmit={addIncome}>
-                {/* <label for="description">Description</label> */}
-                <input type="text" id="description" name="description" value={userInputIncome.description} onChange={handleIncomeChange} placeholder="Paycheck"></input>
-                <input type="integer" id="amount" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} placeholder="0"></input>
+              <form className="flex" onSubmit={handleSubmit}>
+                <input type="text" id="description" name="description" value={userInputIncome.description} onChange={handleIncomeChange} placeholder="description"></input>
+                <input type="integer" id="amount" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} placeholder="amount"></input>
                 <button className="actionButton" value='income' id="newIncome">Add income</button>
               </form>
             </div>
 
-            {/* row 3 */}
+            {/* row 2 */}
             <div>
-              <form className="toolboxForm" onSubmit={addExpense}>
-                <input type="text" id="description" name="description" value={userInputExpense.description} onChange={handleExpenseChange} placeholder="Rent"></input>
-                <input type="integer" id="amount" name="amount" value={userInputExpense.amount} onChange={handleExpenseChange} placeholder="0"></input>
-                <button className="actionButton" value='expense' id="newExpense">Add expense</button>
+              <form>
+
               </form>
             </div>
 
@@ -393,23 +389,15 @@ function App() {
 
             {/* row 1 */}
             <div>Income</div>
-            <div>{totalIncome}</div>
+            <div>${totalIncome}</div>
 
             {/* row 2 */}
             <div>Expense</div>
-            <div>{totalExpense}</div>
+            <div>$</div>
 
             {/* row 3 */}
             <div>Total savings</div>
-            
-              {
-                totalSavings <= 0 ? (
-                  <div className="negative">${totalSavings}</div>
-                ) : (
-                  <div className="positive">${totalSavings}</div>  
-                )
-              }
-            
+            <div>$</div>
 
           </div>
 
@@ -440,54 +428,16 @@ function App() {
                   // }
                   // <form onSubmit={updateChanges}>
                   <form onSubmit={handleSubmit}>
-                    <div className="grid four">
+                    <div className="flex">
+                        <div>{income.id}</div>
+                        <div>{income.type}</div>
                         <div>{income.date}</div>
                         <div>{income.description}</div>
                         <div>{income.amount}</div>
-                        <div><button className="changeButton" onClick={ () => removeRow(income.id) }><i className="fas fa-times"></i></button></div>
                         {/* <div><input disabled id="date" type="text" name="date" value={userInputIncome.date = income.date} onChange={handleIncomeChange} /></div>
                         <div><input id="description" type="text" name="description" value={userInputIncome.description} onChange={handleIncomeChange} /></div> */}
                         {/* newIncome works but i need to name it amount */}
-                        {/* <div><input id="amount" type="text" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} /></div> */}
-                        {/* <div><button className="changeButton"><i className="fas fa-check"></i></button></div>
-                        <div><button className="changeButton" onClick={ () => removeRow(income.id) }><i className="fas fa-times"></i></button></div>  */}
-                      {/* <button onClick={ () => removeBook(income.incomeId) }>remove book</button> */}
-                    </div>
-                  </form>
-                )
-              })
-            }
-          
-        </div>
-
-        <div>
-          <h3 className="bottom">Expense</h3>
-          
-            {
-              
-             
-
-              expenses.map((expense) => {
-                // console.log(incomes.length)
-                // console.log('we need to sum the total value of amount incomes');
-              
-                // setTotalIncome(totalIncome+1)
-
-              // amountToInt = parseInt(income.amount);
-              // setTotalIncome(totalIncome + amountToInt);
-                return (
-                  // if (income.type == 'expense') {
-                  //   <p>{income.type}</p>
-                  // }
-                  // <form onSubmit={updateChanges}>
-                  <form onSubmit={handleSubmit}>
-                    <div className="flex">
-                        <div>{expense.date}</div>
-                        <div>{expense.description}</div>
-                        {/* <div><input disabled id="date" type="text" name="date" value={userInputIncome.date = income.date} onChange={handleIncomeChange} /></div>
-                        <div><input id="description" type="text" name="description" value={userInputIncome.description} onChange={handleIncomeChange} /></div> */}
-                        {/* newIncome works but i need to name it amount */}
-                        <div>{expense.amount}</div>
+                        <div>{income.amount}</div>
                         {/* <div><input id="amount" type="text" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} /></div> */}
                         {/* <div><button className="changeButton"><i className="fas fa-check"></i></button></div>
                         <div><button className="changeButton" onClick={ () => removeRow(income.id) }><i className="fas fa-times"></i></button></div>  */}
