@@ -225,13 +225,13 @@ function App() {
     <div className="App">
       
       <h2>Hi Dallan 👋</h2>
-      <h1>Welcome back!</h1>
+      <h1>Welcome back to Budgeter!</h1>
 
       <main className="row">
         <div className="table settings">
           <h3 className="top">Toolbox</h3>
 
-          <div className="grid">
+          <div className="grid three">
 
             {/* row 1 */}
             <div>Viewing month of</div>
@@ -246,12 +246,12 @@ function App() {
             {/* row 3 */}
             <div>
               <form onSubmit={addRecord}>
-                <button value='income' onClick={addRecord} id="newIncome">Add income</button>
+                <button className="actionButton" value='income' onClick={addRecord} id="newIncome">Add income</button>
               </form>
             </div>
             <div>
               <form onSubmit={addRecord}>
-                <button value='expense' onClick={addRecord} id="newExpense">Add expense</button>
+                <button className="actionButton" value='expense' onClick={addRecord} id="newExpense">Add expense</button>
               </form>
             </div>
             <div></div>
@@ -269,6 +269,23 @@ function App() {
 
         <div className="table settings">
           <h3 className="top">Summary</h3>
+
+          <div className="grid two">
+
+            {/* row 1 */}
+            <div>Income</div>
+            <div>$</div>
+
+            {/* row 2 */}
+            <div>Expense</div>
+            <div>$</div>
+
+            {/* row 3 */}
+            <div>Total savings</div>
+            <div>$</div>
+
+          </div>
+
         </div>
       </main>
 
@@ -281,7 +298,7 @@ function App() {
             {
               
               incomes.map((income) => {
-                console.log(incomes)
+                console.log(incomes.length)
                 return (
                   // if (income.type == 'expense') {
                   //   <p>{income.type}</p>

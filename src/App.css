@@ -109,20 +109,32 @@ h3.bottom {
 
 .grid {
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.three {
+  grid-template-columns: 1.5fr 1.5fr 1fr;
+}
+
+.two {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .grid > div {
   padding:.5em;
 }
 
-.changeButton {
-  background:blue;
+button {
   border:none;
-  background-color: #393E46;
   padding:.5em 1em;
-  color:#eee;
   border-radius:10px;
+}
+.changeButton {
+  background-color: #393E46;
+  color:#eee;
+}
+
+.actionButton {
+  background-color: #fd7014;
 }
 
 
