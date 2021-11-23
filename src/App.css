@@ -45,26 +45,49 @@ body {
   margin:0 auto;
 }
 
+/* header font styling */
 h1 {
   color:#eee;
 }
-h2 {
+h2.greeting {
   color:#eee;
 }
 
-h3.top {
+h2.top {
   color:#222831;
 }
 
-h3.bottom {
+h2.bottom {
   color:#eee;
 }
+.span {
+  font-size: .6em;
+  font-weight:normal;
+  font-style: italic;
+  color:#eee;
+  opacity: .5;
+  margin-left:1em;
+}
 
+
+/* total savings styling */
 .negative {
   color:red;
 }
 .positive {
   color:green;
+}
+
+/* break line between income/expenses and total savings */
+.break {
+  border-bottom: 1px solid #dcdcdc;
+  margin-bottom:.75em;
+}
+.color {
+  color:#2E3642;
+}
+.bold {
+  font-weight:bold;
 }
 
 .row {
@@ -135,7 +158,28 @@ form {
   /* 4 columns used for listing incomes & expenses */
   .four {
     grid-template-columns: repeat(4,1fr);
+    align-items: center;
   }
+
+  /* table titles for incomes & expenses */
+  .header {
+    margin-bottom:.5em;
+  }
+  .title {
+    color:#eee;
+    font-weight: bold;
+  }
+
+  /* item styling incomes & expenses */
+
+  .item {
+    color:#bababa;
+  }
+  .item:hover {
+    background-color: #2e3642;
+    border-radius: 10px;
+  }
+  
 
   
   .grid > div {
@@ -154,34 +198,38 @@ form {
   border-radius:10px;
 } */
 .changeButton {
-  background-color: #393E46;
-  color:#eee;
+  /* background-color: #393E46; */
+  background-color:#fd7014;
+  color:#222831;
+  border-radius: 10px;
+  padding:.5em 1em;
+  border:none;
 }
 
 .actionButton {
   background-color: #fd7014;
+  color:#222831;
+  border-radius: 0px 10px 10px 0px;
+  font-weight: bold;
+}
+.inputField {
+  background-color: #DCDCDC;
+  color:#2E3642;
 }
 
-
-
-input[type="text"], input[type="integer"], button {
+.inputField, .actionButton {
   width:100%;
   border:0;
   font-size: inherit;
   padding: 0.75em;
-  background:white;
   border-bottom:1px solid transparent;
-  color:#393E46;
 }
 
-input[type="text"]:first-child {
+.inputField:first-child {
   border-radius: 10px 0px 0px 10px;
 }
-button {
-  border-radius: 0px 10px 10px 0px;
-}
 
-input[type="text"]:focus, input[type="integer"]:focus {
+.inputField:focus {
   border-bottom:1px solid #aaa;
   outline: none;
 }

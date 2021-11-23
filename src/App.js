@@ -325,20 +325,20 @@ function App() {
   return (
     <div className="App">
       
-      <h2>Hi Dallan 👋</h2>
+      <h2 className="greeting">Hi Dallan 👋</h2>
       <h1>Welcome back to Budgeter!</h1>
 
       <main className="row">
         <div className="table settings">
-          <h3 className="top">Toolbox</h3>
+          <h2 className="top">Toolbox</h2>
 
           <div className="grid one">
 
             {/* row 1 */}
             <div>
               <div className="toolboxForm" onSubmit={addIncome}>
-                <div>Description</div>
-                <div>Amount ($)</div>
+                <div className="color bold">Description</div>
+                <div className="color bold">Amount ($)</div>
                 <div></div>
               </div>
             </div>
@@ -347,8 +347,8 @@ function App() {
             <div>
               <form className="toolboxForm" onSubmit={addIncome}>
                 {/* <label for="description">Description</label> */}
-                <input type="text" id="description" name="description" value={userInputIncome.description} onChange={handleIncomeChange} placeholder="Paycheck"></input>
-                <input type="integer" id="amount" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} placeholder="0"></input>
+                <input className="inputField" type="text" id="description" name="description" value={userInputIncome.description} onChange={handleIncomeChange} placeholder="Paycheck"></input>
+                <input className="inputField" type="integer" id="amount" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} placeholder="0"></input>
                 <button className="actionButton" value='income' id="newIncome">Add income</button>
               </form>
             </div>
@@ -356,8 +356,8 @@ function App() {
             {/* row 3 */}
             <div>
               <form className="toolboxForm" onSubmit={addExpense}>
-                <input type="text" id="description" name="description" value={userInputExpense.description} onChange={handleExpenseChange} placeholder="Rent"></input>
-                <input type="integer" id="amount" name="amount" value={userInputExpense.amount} onChange={handleExpenseChange} placeholder="0"></input>
+                <input className="inputField" type="text" id="description" name="description" value={userInputExpense.description} onChange={handleExpenseChange} placeholder="Rent"></input>
+                <input className="inputField" type="integer" id="amount" name="amount" value={userInputExpense.amount} onChange={handleExpenseChange} placeholder="0"></input>
                 <button className="actionButton" value='expense' id="newExpense">Add expense</button>
               </form>
             </div>
@@ -387,20 +387,24 @@ function App() {
         </div>
 
         <div className="table settings">
-          <h3 className="top">Summary</h3>
+          <h2 className="top">Summary</h2>
 
           <div className="grid two">
 
             {/* row 1 */}
-            <div>Income</div>
-            <div>{totalIncome}</div>
+            <div className="color bold">Income</div>
+            <div className="color">{totalIncome}</div>
 
             {/* row 2 */}
-            <div>Expense</div>
-            <div>{totalExpense}</div>
+            <div className="color bold">Expense</div>
+            <div className="color">{totalExpense}</div>
+
+            {/* row 2 */}
+            <div class="break"></div>
+            <div class="break"></div>
 
             {/* row 3 */}
-            <div>Total savings</div>
+            <div className="color bold">Total savings</div>
             
               {
                 totalSavings <= 0 ? (
@@ -417,41 +421,29 @@ function App() {
       </main>
 
       {/* display income data */}
-      <main className="row">
+      <section className="row">
 
         <div>
-          <h3 className="bottom">Income</h3>
-          
+          {/* section title */}
+          <h2 className="bottom">Incomes <span className="span">total ${totalIncome}</span></h2>
+
+          {/* table titles */}
+          <div className="header grid four">
+              <div className="title">Date</div>
+              <div className="title">Description</div>
+              <div className="title">Amount ($)</div>
+              <div></div>
+          </div>
+
             {
-              
-             
-
               incomes.map((income) => {
-                // console.log(incomes.length)
-                // console.log('we need to sum the total value of amount incomes');
-              
-                // setTotalIncome(totalIncome+1)
-
-              // amountToInt = parseInt(income.amount);
-              // setTotalIncome(totalIncome + amountToInt);
                 return (
-                  // if (income.type == 'expense') {
-                  //   <p>{income.type}</p>
-                  // }
-                  // <form onSubmit={updateChanges}>
                   <form onSubmit={handleSubmit}>
-                    <div className="grid four">
+                    <div className="item grid four">
                         <div>{income.date}</div>
                         <div>{income.description}</div>
                         <div>{income.amount}</div>
                         <div><button className="changeButton" onClick={ () => removeRow(income.id) }><i className="fas fa-times"></i></button></div>
-                        {/* <div><input disabled id="date" type="text" name="date" value={userInputIncome.date = income.date} onChange={handleIncomeChange} /></div>
-                        <div><input id="description" type="text" name="description" value={userInputIncome.description} onChange={handleIncomeChange} /></div> */}
-                        {/* newIncome works but i need to name it amount */}
-                        {/* <div><input id="amount" type="text" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} /></div> */}
-                        {/* <div><button className="changeButton"><i className="fas fa-check"></i></button></div>
-                        <div><button className="changeButton" onClick={ () => removeRow(income.id) }><i className="fas fa-times"></i></button></div>  */}
-                      {/* <button onClick={ () => removeBook(income.incomeId) }>remove book</button> */}
                     </div>
                   </form>
                 )
@@ -461,37 +453,29 @@ function App() {
         </div>
 
         <div>
-          <h3 className="bottom">Expense</h3>
+            {/* section title */}
+            <h2 className="bottom">Expenses <span className="span">total ${totalExpense}</span></h2>
+
+            {/* table titles */}
+            <div className="header grid four">
+                <div className="title">Date</div>
+                <div className="title">Description</div>
+                <div className="title">Amount ($)</div>
+                <div></div>
+            </div>
           
             {
               
              
 
               expenses.map((expense) => {
-                // console.log(incomes.length)
-                // console.log('we need to sum the total value of amount incomes');
-              
-                // setTotalIncome(totalIncome+1)
-
-              // amountToInt = parseInt(income.amount);
-              // setTotalIncome(totalIncome + amountToInt);
                 return (
-                  // if (income.type == 'expense') {
-                  //   <p>{income.type}</p>
-                  // }
-                  // <form onSubmit={updateChanges}>
                   <form onSubmit={handleSubmit}>
-                    <div className="flex">
+                    <div className="item grid four">
                         <div>{expense.date}</div>
                         <div>{expense.description}</div>
-                        {/* <div><input disabled id="date" type="text" name="date" value={userInputIncome.date = income.date} onChange={handleIncomeChange} /></div>
-                        <div><input id="description" type="text" name="description" value={userInputIncome.description} onChange={handleIncomeChange} /></div> */}
-                        {/* newIncome works but i need to name it amount */}
                         <div>{expense.amount}</div>
-                        {/* <div><input id="amount" type="text" name="amount" value={userInputIncome.amount} onChange={handleIncomeChange} /></div> */}
-                        {/* <div><button className="changeButton"><i className="fas fa-check"></i></button></div>
-                        <div><button className="changeButton" onClick={ () => removeRow(income.id) }><i className="fas fa-times"></i></button></div>  */}
-                      {/* <button onClick={ () => removeBook(income.incomeId) }>remove book</button> */}
+                        <div><button className="changeButton" onClick={ () => removeRow(expense.id) }><i className="fas fa-times"></i></button></div>
                     </div>
                   </form>
                 )
@@ -503,7 +487,7 @@ function App() {
         {/* <div> */}
 
           {/* display expense data */}
-          {/* <h3 className="bottom">Expense</h3>
+          {/* <h2 className="bottom">Expense</h2>
             {
               
               expenses.map((expense) => {
@@ -527,7 +511,7 @@ function App() {
           </div> */
           }
 
-      </main>
+      </section>
 
       
     </div>
