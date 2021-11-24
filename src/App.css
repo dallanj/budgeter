@@ -46,7 +46,7 @@ body {
 }
 
 /* header font styling */
-h1 {
+h1.greeting {
   color:#eee;
 }
 h2.greeting {
@@ -88,6 +88,10 @@ h2.bottom {
 }
 .bold {
   font-weight:bold;
+}
+.opac {
+  opacity: .3;
+  font-size: .75em;
 }
 
 .row {
@@ -155,9 +159,22 @@ form {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* 2 columns used for summary */
+  .twohalf {
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    margin-top:0;
+    margin-bottom: 3em;
+  }
+
+  /* 1 columns used for summary */
+  .three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   /* 4 columns used for listing incomes & expenses */
   .four {
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: 1fr 1.5fr 1fr .5fr;
     align-items: center;
   }
 
@@ -179,9 +196,7 @@ form {
     background-color: #2e3642;
     border-radius: 10px;
   }
-  
 
-  
   .grid > div {
     padding:.5em;
   }
@@ -192,14 +207,10 @@ form {
   /* background:blueviolet */
 }
 
-/* button {
-  border:none;
-  padding:.5em 1em;
-  border-radius:10px;
-} */
 .changeButton {
   /* background-color: #393E46; */
-  background-color:#fd7014;
+  /* background-color:#fd7014; */
+  background-color: #f57842;
   color:#222831;
   border-radius: 10px;
   padding:.5em 1em;
@@ -207,7 +218,8 @@ form {
 }
 
 .actionButton {
-  background-color: #fd7014;
+  /* background-color: #fd7014; */
+  background-color:#f57842;
   color:#222831;
   border-radius: 0px 10px 10px 0px;
   font-weight: bold;
@@ -233,3 +245,112 @@ form {
   border-bottom:1px solid #aaa;
   outline: none;
 }
+
+fieldset {
+  border:1px solid #2E3642;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;	
+    border-radius:8px;	
+}
+
+legend {
+  padding:0 1em;
+}
+
+
+/* Welcome Wizard Styling */
+
+h2.wizard {
+  color:#222831;
+  text-align: center;
+  margin-bottom:2em;
+}
+
+.wizardOverlay {
+  width:100%;
+  height:100%;
+  background-color: #303259;
+  opacity: 0.5;
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 100;
+}
+
+.wizardMenu {
+  width:50%;
+  background:#eee;
+  border-radius: 10px;
+  position:absolute;
+  top:50%;
+  right:50%;
+  transform: translate(50%,-50%);
+  z-index: 200;
+  padding:2em;
+
+  /* box shadow properties */
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+}
+
+.wizardInput {
+  border-radius: 10px;
+  padding:1em 1em;
+  border:none;
+}
+.wizardInput:focus {
+  border-bottom:1px solid rgb(87, 43, 43);
+  outline: none;
+}
+.italic {
+  font-style: italic;
+}
+p {
+  color:#222831;
+}
+.wizardopac {
+  opacity: .75;
+}
+.wizardButton {
+  background-color: #f57842;
+  color:#222831;
+  border-radius: 10px;
+  padding:.75em 1em;
+  border:none;
+  font-size:1em;
+}
+
+/* Error */
+.errorMsg { 
+  background-color: #cc3d3c;
+  color: #fff;
+  position: relative;
+  padding: .5em; 
+  width:80%;
+  /* @include lora(14px, 24px, 0.3px, $white, left); */
+  /* animation-name: fadeIn;
+  animation-duration: 2s, 2s;
+  animation-fill-mode: forwards; */
+  /* opacity:0; */
+}
+.errorMsg::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: -8px;
+  border-right: 8px solid transparent;
+  border-bottom:8px solid #cc3d3c;
+  border-left: 8px solid transparent;
+}
+
+/* @media screen and (max-width: 940px) {
+  .menuOverlay {
+      display:none;
+  }
+  .menuContent {
+      width:100%;
+  }
+} */
