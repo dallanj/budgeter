@@ -91,9 +91,6 @@ form {
   display:flex;
   justify-content: space-around;
   align-items: center;
-  /* padding:.5em; */
-  /* border:1px solid black; */
-  /* margin-bottom:.5em; */
 }
 
 .flex:hover {
@@ -172,21 +169,21 @@ form {
 .toolboxForm {
   display:grid;
   grid-template-columns: 1fr .75fr 1fr;
-  /* background:blueviolet */
 }
 
 .changeButton {
-  /* background-color: #393E46; */
-  /* background-color:#fd7014; */
   background-color: #f57842;
   color:#222831;
   border-radius: 10px;
   padding:.5em 1em;
   border:none;
 }
+.changeButton:hover, .actionButton:hover, .wizardButton:hover {
+  background-color:#F68B5D;
+  transform: scale(1.025);
+}
 
 .actionButton {
-  /* background-color: #fd7014; */
   background-color:#f57842;
   color:#222831;
   border-radius: 0px 10px 10px 0px;
@@ -231,7 +228,19 @@ legend {
 h2.wizard {
   color:#222831;
   text-align: center;
+  margin-bottom:1em;
+}
+h3.wizard {
+  color:#222831;
+  text-align: center;
   margin-bottom:2em;
+}
+h3.wizard a {
+  color: #f57842;
+  text-decoration: none;
+}
+h3.wizard a:hover {
+  color:#F68B5D;
 }
 
 .wizardOverlay {
@@ -252,9 +261,9 @@ h2.wizard {
   position:absolute;
   top:50%;
   right:50%;
-  transform: translate(50%,-50%);
   z-index: 200;
   padding:2em;
+  animation: slideInFromTop .3s linear 0s 1 normal forwards;
 
   /* box shadow properties */
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
@@ -262,6 +271,22 @@ h2.wizard {
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    -ms-transform: translate(50%, -200%);
+      -moz-transform: translate(50%, -200%);
+      -webkit-transform: translate(50%, -200%);
+      transform: translate(50%, -200%);
+  }
+  100% {
+       -ms-transform: translate(50%, -50%);
+      -moz-transform: translate(50%, -50%);
+      -webkit-transform: translate(50%, -50%);
+      transform: translate(50%, -50%);
+      opacity: 1;
+  }
 }
 
 .wizardInput {
@@ -298,12 +323,12 @@ p {
   position: relative;
   padding: .5em; 
   width:80%;
-  /* @include lora(14px, 24px, 0.3px, $white, left); */
-  /* animation-name: fadeIn;
+  animation-name: fadeIn;
   animation-duration: 2s, 2s;
-  animation-fill-mode: forwards; */
-  /* opacity:0; */
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
+
 .errorMsg::before {
   content: '';
   position: absolute;
@@ -313,11 +338,15 @@ p {
   border-bottom:8px solid #cc3d3c;
   border-left: 8px solid transparent;
 }
-
-/* Mobile menus
-.mobileSettingsMenu {
-  display:none;
-} */
+/* animations for error and popups*/
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
 
 /* Media queries */
 
@@ -351,13 +380,10 @@ p {
     grid-template-columns: 1.5fr 2fr 1fr .5fr;
   }
 
-  /* .mobileSettingsMenu {
-    display:flex;
+  .wizardMenu {
+    width:80%;
   }
 
-  #summaryMenu {
-    display:none;
-  } */
 }
 
 @media (max-width: 606px) {
@@ -367,6 +393,7 @@ p {
   .four {
     grid-template-columns: 1.5fr 2fr 1.5fr .5fr;
   }
+
 }
 
 @media (max-width: 480px) {
@@ -393,9 +420,6 @@ p {
 
 
 /* React stuff */
-.App {
-  /* text-align: center; */
-}
 
 .App-logo {
   height: 40vmin;
@@ -422,8 +446,6 @@ p {
 .App-link {
   color: #61dafb;
 }
-
-
 
 @keyframes App-logo-spin {
   from {

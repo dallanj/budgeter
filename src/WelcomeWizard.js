@@ -11,6 +11,7 @@ function WelcomeWizard(props) {
               {/* Welcome wizard menu */}
               <div role="Welcome wizard setup" className="wizardMenu">
                 <h2 className="wizard">Welcome to Budgeter!</h2>
+                <h3 className="wizard">Made by <a href="https://dallan.ca/">Dallan Jones</a> at <a href="https://junocollege.com/">Juno College</a></h3>
     
                 <p className="wizardopac">
                   Greetings, <span className="italic bold">stranger</span>!
@@ -32,7 +33,7 @@ function WelcomeWizard(props) {
                 <form aria-label="Welcome wizard form" onSubmit={props.handleUserSubmit}>
     
                   <div className="grid opac">
-                    <div className="italic">Items with (*) are required</div>
+                    <div className="italic">Inputs marked with (*) are required</div>
                     <div></div>
                   </div>
     

@@ -64,8 +64,6 @@ function App() {
 
     // using localstorage will set a unique userId to be used for a unique user experience
     localStorage.setItem("userId", userId);
-
-    console.log(userId.length)
   }
   // store userId in a variable for later use
   const userId = localStorage.getItem("userId");
@@ -116,7 +114,6 @@ function App() {
       // iterate through database data where index = userId
         for(let property in data[userId]) {
 
-          console.log(data[userId][property].type)
           if(data[userId][property].type == 'income') {
             arrayOfIncomes.push(parseInt(data[userId][property].amount));
           }
@@ -289,8 +286,6 @@ function App() {
         // push expense to db only if properties are not empty
         if(userInputExpense.type === 'expense') {
           dbRef.push(userInputExpense);
-        } else {
-          console.log('poopo ')
         }
 
         // clear the inputs
@@ -365,12 +360,10 @@ function App() {
 
     if(event.target[1].value == 'income') {
       dbRef.child(event.target[0].value).push(userInputIncome);
-      console.log('its an income')
     }
     else if(event.target[1].value == 'expense')
     {
       dbRef.child(event.target[0].value).push(userInputExpense);
-      console.log('its an expense')
     }
   }
 
@@ -453,14 +446,12 @@ function App() {
     // remove existing error
     const div = document.getElementById(firstId);
     secondId = document.getElementById(secondId);
-    // thirdId = document.getElementById(thirdId);
 
     /* 
     to avoid any duplicates im checking if an error is present 
     on the page by checking the document if the class of errorMsg exists
     */
     if(!document.getElementsByClassName('errorMsg').length) {
-      // secondId.style.background = '#fbe7f0'
 
       // since im using 2 grid columns, I need an empty div below the label
       const emptyNode = document.createElement("div");
@@ -469,17 +460,13 @@ function App() {
       const node = document.createElement("div");
       node.classList.add('errorMsg');
       node.style.cssText += 'grid-column: 1 / span 3';
-
       node.innerText = message;
 
       // append message to new node and append node to parent
-      // document.getElementById(firstId).appendChild(emptyNode); 
       document.getElementById(firstId).appendChild(node);
+
     } 
   }
-
-  // make this its own component
-
 
   // create an error message in the welcome wizard
   function setErrorWizard(firstId, secondId, thirdId, message) {
@@ -516,8 +503,6 @@ function App() {
     const div = document.getElementById(firstId);
     secondId = document.getElementById(secondId);
 
-    console.log('amount of childs')
-    console.log(div.length)
     /*
         if div has more than 3 children (3 inputs + 1 error is 4)
         child[0] is the input
@@ -530,26 +515,8 @@ function App() {
     }
   }
 
-  // If i have time ill create a toggle menu option for toolbox/summary and income/expense
-  // toggle menu function
-  // handle submit for toggling menu
-  // const toggleMenu = (event) => {
-  //   event.preventDefault();
-    
-  //   console.log(event.target)
-  // }
-
-  // document.getElementById('toggleToolbox').addEventListener('click', function() {
-  //   toggleMenu('toolboxMenu')
-  // });
-
-  // document.getElementById('toggleSummary').addEventListener('click', function() {
-  //   toggleMenu('summaryMenu')
-  // });
-
-
-
   return (
+    
     <div className="App">
 
       {/* Welcome Wizard Setup */}
@@ -576,13 +543,6 @@ function App() {
       {/* Budgeter first row of menus (toolbox and summary) */}
       <main className="row">
 
-        {/* <div className="mobileSettingsMenu">
-          <form onSubmit={toggleMenu}>
-            <button value="poop" id="toggleToolbox">Toolbox</button>
-            <button onClick={ () => toggleMenu('summary') } id="toggleSummary">Summary</button>
-          </form>
-          
-        </div> */}
         {/* Toolbox menu */}
         <Toolbox 
           addIncome = {addIncome} 
@@ -602,8 +562,7 @@ function App() {
         />
 
       </main>
-
-      
+  
       <section className="row">
 
         {/* display income data */}
@@ -613,9 +572,7 @@ function App() {
           userId = {userId}
           incomes = {incomes}
         />
-        
-
-        
+         
         {/* display expense data */}
         <Expense 
           totalExpense = {totalExpense} 
@@ -626,8 +583,8 @@ function App() {
 
       </section>
 
-      
     </div>
+
   );
 }
 
